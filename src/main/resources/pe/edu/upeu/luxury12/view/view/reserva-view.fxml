@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.luxury12.Controller.ReservaController"
+            prefWidth="1000"
+            prefHeight="650">
+
+    <top>
+        <VBox spacing="15" style="-fx-background-color: #172033;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="HOTEL LUXURY - GESTIÓN DE RESERVAS"
+                   style="-fx-font-size: 23px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: white;"/>
+
+            <Label text="Administración de reservas del hotel"
+                   style="-fx-text-fill: #D1D5DB;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="15">
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <HBox spacing="10">
+
+                <Button text="REGISTRAR"
+                        onAction="#registrarReserva"
+                        style="-fx-background-color: #16A34A;
+                               -fx-text-fill: white;"/>
+
+                <Button text="EDITAR"
+                        onAction="#editarReserva"
+                        style="-fx-background-color: #2563EB;
+                               -fx-text-fill: white;"/>
+
+                <Button text="ELIMINAR"
+                        onAction="#eliminarReserva"
+                        style="-fx-background-color: #C0392B; -fx-text-fill: white;"/>
+
+                <Button text="ACTUALIZAR"
+                        onAction="#actualizarReservas"/>
+
+            </HBox>
+
+            <TableView fx:id="tablaReservas"
+                       VBox.vgrow="ALWAYS">
+
+                <columns>
+                    <TableColumn fx:id="colId"
+                                 text="ID"
+                                 prefWidth="55"/>
+
+                    <TableColumn fx:id="colCliente"
+                                 text="CLIENTE"
+                                 prefWidth="180"/>
+
+                    <TableColumn fx:id="colHabitacion"
+                                 text="HABITACIÓN"
+                                 prefWidth="130"/>
+
+                    <TableColumn fx:id="colIngreso"
+                                 text="INGRESO"
+                                 prefWidth="115"/>
+
+                    <TableColumn fx:id="colSalida"
+                                 text="SALIDA"
+                                 prefWidth="115"/>
+
+                    <TableColumn fx:id="colTotal"
+                                 text="TOTAL S/"
+                                 prefWidth="110"/>
+
+                    <TableColumn fx:id="colEstado"
+                                 text="ESTADO"
+                                 prefWidth="120"/>
+                </columns>
+
+            </TableView>
+
+        </VBox>
+    </center>
+
+</BorderPane>

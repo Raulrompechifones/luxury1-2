@@ -1,0 +1,77 @@
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="pe.edu.upeu.luxury12.Controller.ClienteFormController"
+      spacing="15"
+      prefWidth="450"
+      style="-fx-background-color: #F5F6FA;">
+
+    <padding>
+        <Insets top="25" right="30" bottom="25" left="30"/>
+    </padding>
+
+    <Label text="REGISTRO DE CLIENTES"
+           style="-fx-font-size: 22px;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #B8860B;"/>
+
+    <GridPane hgap="12" vgap="12">
+
+        <Label text="Nombre:"
+               GridPane.rowIndex="0"/>
+        <TextField fx:id="txtNombre"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="0"/>
+
+        <Label text="Apellido:"
+               GridPane.rowIndex="1"/>
+        <TextField fx:id="txtApellido"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="1"/>
+
+        <Label text="DNI:"
+               GridPane.rowIndex="2"/>
+        <TextField fx:id="txtDni"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="2"/>
+
+        <Label text="Teléfono:"
+               GridPane.rowIndex="3"/>
+        <TextField fx:id="txtTelefono"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="3"/>
+
+        <Label text="Email:"
+               GridPane.rowIndex="4"/>
+        <TextField fx:id="txtEmail"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="4"/>
+
+        <Label text="Cantidad personas:"
+               GridPane.rowIndex="5"/>
+        <TextField fx:id="txtPersonas"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="5"/>
+
+    </GridPane>
+
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+
+        <Button text="CANCELAR"
+                onAction="#cancelar"/>
+
+        <Button text="GUARDAR CLIENTE"
+                onAction="#guardarCliente"
+                style="-fx-background-color: #D4AF37;
+                       -fx-font-weight: bold;"/>
+
+    </HBox>
+
+</VBox>

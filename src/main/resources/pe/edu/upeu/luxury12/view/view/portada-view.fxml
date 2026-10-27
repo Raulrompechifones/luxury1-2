@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="pe.edu.upeu.luxury12.Controller.PortadaController"
+           prefWidth="800"
+           prefHeight="600"
+           style="-fx-background-color: #101820;">
+
+    <!-- IMAGEN DEL HOTEL -->
+    <ImageView fitWidth="800"
+               fitHeight="600"
+               preserveRatio="false"
+               opacity="0.85">
+        <image>
+            <Image url="@../img/hotel_portada.png"/>
+        </image>
+    </ImageView>
+
+    <!-- PANEL DE INICIO DE SESIÓN -->
+    <VBox alignment="CENTER"
+          spacing="15"
+          maxWidth="450"
+          maxHeight="510"
+          style="-fx-background-color: rgba(0,0,0,0.85);
+                 -fx-background-radius: 18;
+                 -fx-padding: 30;">
+
+        <Label text="HOTEL LUXURY"
+               style="-fx-font-size: 36px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #D4AF37;"/>
+
+        <Label text="SISTEMA DE GESTIÓN HOTELERA"
+               style="-fx-font-size: 15px;
+                      -fx-text-fill: white;"/>
+
+        <Label text="INICIAR SESIÓN"
+               style="-fx-font-size: 20px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #D4AF37;"/>
+
+        <!-- USUARIO -->
+        <Label text="Usuario"
+               style="-fx-font-size: 14px;
+                      -fx-text-fill: white;"/>
+
+        <TextField fx:id="txtUsuario"
+                   promptText="Ingrese su usuario"
+                   maxWidth="300"
+                   prefHeight="38"
+                   style="-fx-background-radius: 8;
+                          -fx-font-size: 14px;"/>
+
+        <!-- CONTRASEÑA -->
+        <Label text="Contraseña"
+               style="-fx-font-size: 14px;
+                      -fx-text-fill: white;"/>
+
+        <PasswordField fx:id="txtClave"
+                       promptText="Ingrese su contraseña"
+                       maxWidth="300"
+                       prefHeight="38"
+                       style="-fx-background-radius: 8;
+                              -fx-font-size: 14px;"/>
+
+
+        <Button text="INICIAR SESIÓN"
+                onAction="#iniciarSesion"
+                prefWidth="300"
+                prefHeight="43"
+                style="-fx-background-color: #D4AF37;
+                       -fx-text-fill: #101820;
+                       -fx-font-size: 15px;
+                       -fx-font-weight: bold;
+                       -fx-background-radius: 10;
+                       -fx-cursor: hand;"/>
+
+        <Label text="¿No tienes una cuenta?"
+               style="-fx-font-size: 13px;
+                      -fx-text-fill: white;"/>
+
+
+        <Button text="REGISTRAR USUARIO"
+                onAction="#registrarUsuario"
+                prefWidth="300"
+                prefHeight="40"
+                style="-fx-background-color: transparent;
+                       -fx-border-color: #D4AF37;
+                       -fx-border-width: 2;
+                       -fx-border-radius: 10;
+                       -fx-text-fill: #D4AF37;
+                       -fx-font-size: 14px;
+                       -fx-font-weight: bold;
+                       -fx-cursor: hand;"/>
+
+    </VBox>
+
+</StackPane>

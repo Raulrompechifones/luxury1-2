@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="pe.edu.upeu.luxury12.Controller.ClienteController"
+        prefWidth="850"
+        prefHeight="600"
+        style="-fx-background-color: #F5F6FA;">
+
+    <top>
+        <VBox spacing="10"
+              style="-fx-background-color: #101820;">
+
+            <padding>
+                <Insets top="22" right="25" bottom="22" left="25"/>
+            </padding>
+
+            <Label text="GESTIÓN DE CLIENTES"
+                   style="-fx-font-size: 25px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #D4AF37;"/>
+
+            <Label text="HOTEL LUXURY - Administración de clientes"
+                   style="-fx-font-size: 13px;
+                          -fx-text-fill: white;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="18">
+
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+
+            <HBox spacing="12">
+
+                <TextField fx:id="txtBuscar"
+                           promptText="Buscar cliente por DNI"
+                           prefWidth="300"/>
+
+                <Button text="BUSCAR"
+                        onAction="#buscarCliente"/>
+
+                <Button text="MOSTRAR TODOS"
+                        onAction="#listarClientes"/>
+            </HBox>
+
+            <TableView fx:id="tablaClientes"
+                       VBox.vgrow="ALWAYS">
+
+                <columns>
+
+                    <TableColumn fx:id="colId"
+                                 text="ID"
+                                 prefWidth="55"/>
+
+                    <TableColumn fx:id="colNombre"
+                                 text="Nombre"
+                                 prefWidth="125"/>
+
+                    <TableColumn fx:id="colApellido"
+                                 text="Apellido"
+                                 prefWidth="125"/>
+
+                    <TableColumn fx:id="colDni"
+                                 text="DNI"
+                                 prefWidth="100"/>
+
+                    <TableColumn fx:id="colTelefono"
+                                 text="Teléfono"
+                                 prefWidth="110"/>
+
+                    <TableColumn fx:id="colEmail"
+                                 text="Email"
+                                 prefWidth="170"/>
+
+                    <TableColumn fx:id="colPersonas"
+                                 text="Personas"
+                                 prefWidth="80"/>
+
+                </columns>
+            </TableView>
+
+            <HBox spacing="12">
+
+                <Button text="+ REGISTRAR"
+                        onAction="#registrarCliente"
+                        style="-fx-background-color: #D4AF37;
+                               -fx-text-fill: #101820;
+                               -fx-font-weight: bold;"/>
+
+                <Button text="EDITAR"
+                        onAction="#editarCliente"/>
+
+                <Button text="ELIMINAR"
+                        onAction="#eliminarCliente"/>
+
+                <Button text="ACTUALIZAR"
+                        onAction="#actualizarClientes"/>
+
+            </HBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

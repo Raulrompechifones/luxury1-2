@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="pe.edu.upeu.luxury12.Controller.ReservaFormController"
+      spacing="15"
+      prefWidth="480"
+      prefHeight="560"
+      style="-fx-background-color: #F8FAFC;">
+
+    <padding>
+        <Insets top="25" right="30" bottom="25" left="30"/>
+    </padding>
+
+    <Label text="HOTEL LUXURY"
+           style="-fx-font-size: 24px;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #172033;"/>
+
+    <Label text="Formulario de reserva"
+           style="-fx-font-size: 16px;"/>
+
+    <Separator/>
+
+    <Label text="Cliente"/>
+    <ComboBox fx:id="cmbCliente"
+              promptText="Seleccionar cliente"
+              maxWidth="Infinity"/>
+
+    <Label text="Habitación"/>
+    <ComboBox fx:id="cmbHabitacion"
+              promptText="Seleccionar habitación"
+              maxWidth="Infinity"/>
+
+    <Label text="Fecha de ingreso"/>
+    <DatePicker fx:id="fechaIngreso"
+                maxWidth="Infinity"/>
+
+    <Label text="Fecha de salida"/>
+    <DatePicker fx:id="fechaSalida"
+                maxWidth="Infinity"/>
+
+    <Label text="Total a pagar (S/)"/>
+    <TextField fx:id="txtTotal"
+               editable="false"
+               promptText="0.00"/>
+
+    <Label text="Estado"/>
+    <ComboBox fx:id="cmbEstado"
+              maxWidth="Infinity"/>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+
+        <Button text="CANCELAR"
+                onAction="#cancelar"
+                prefWidth="110"/>
+
+        <Button text="GUARDAR"
+                onAction="#guardar"
+                prefWidth="110"
+                style="-fx-background-color: #16A34A;
+                       -fx-text-fill: white;"/>
+
+    </HBox>
+
+</VBox>

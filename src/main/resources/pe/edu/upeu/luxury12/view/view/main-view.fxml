@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.luxury12.Controller.MainController"
+            prefWidth="1000"
+            prefHeight="650"
+            style="-fx-background-color: #F5F6FA;">
+
+    <left>
+        <VBox spacing="16"
+              prefWidth="240"
+              style="-fx-background-color: #101820;
+                     -fx-padding: 25;">
+
+            <Label text="HOTEL LUXURY"
+                   style="-fx-font-size: 24px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #D4AF37;"/>
+
+            <Label text="PANEL ADMINISTRATIVO"
+                   style="-fx-font-size: 12px;
+                          -fx-text-fill: white;"/>
+
+            <!-- DATOS DEL TRABAJADOR -->
+            <VBox spacing="5"
+                  style="-fx-background-color: #1E293B;
+                         -fx-background-radius: 8;
+                         -fx-padding: 12;">
+
+                <Label fx:id="lblUsuarioActual"
+                       text="Usuario"
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: white;"/>
+
+                <Label fx:id="lblRolActual"
+                       text="Rol"
+                       style="-fx-font-size: 11px;
+                              -fx-text-fill: #D4AF37;"/>
+
+            </VBox>
+
+            <Button text="INICIO"
+                    prefWidth="190"
+                    onAction="#mostrarInicio"/>
+
+            <Button text="CLIENTES"
+                    prefWidth="190"
+                    onAction="#mostrarClientes"/>
+
+            <Button text="HABITACIONES"
+                    prefWidth="190"
+                    onAction="#mostrarHabitaciones"/>
+
+            <Button text="RESERVAS"
+                    prefWidth="190"
+                    onAction="#mostrarReservas"/>
+
+            <Button fx:id="btnReportes"
+                    text="REPORTES"
+                    prefWidth="190"
+                    onAction="#mostrarReportes"/>
+
+            <Button fx:id="btnUsuarios"
+                    text="USUARIOS"
+                    prefWidth="190"
+                    onAction="#mostrarUsuarios"/>
+
+            <!-- CERRAR SESIÓN -->
+            <Button text="CERRAR SESIÓN"
+                    prefWidth="190"
+                    prefHeight="40"
+                    onAction="#cerrarSesion"
+                    style="-fx-background-color: #D4AF37;
+                           -fx-text-fill: #101820;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;
+                           -fx-cursor: hand;"/>
+
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="panelContenido"
+                   alignment="CENTER"
+                   style="-fx-background-color: #F5F6FA;">
+
+            <Label text="BIENVENIDO AL SISTEMA HOTEL LUXURY"
+                   style="-fx-font-size: 23px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #101820;"/>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="pe.edu.upeu.luxury12.Controller.HabitacionFormController"
+      spacing="12"
+      alignment="CENTER_LEFT"
+      prefWidth="420"
+      style="-fx-background-color: white; -fx-padding: 25;">
+
+    <Label text="DATOS DE LA HABITACIÓN"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <Label text="Código de habitación"/>
+    <TextField fx:id="txtCodigo"
+               promptText="Ejemplo: HAB-001"/>
+
+    <Label text="Número de habitación"/>
+    <TextField fx:id="txtNumero"
+               promptText="Ejemplo: 101"/>
+
+    <Label text="Tipo de habitación"/>
+    <ComboBox fx:id="cmbTipo"
+              prefWidth="370"/>
+
+    <Label text="Precio por noche (S/)"/>
+    <TextField fx:id="txtPrecio"
+               promptText="Ejemplo: 150.00"/>
+
+    <Label text="Estado"/>
+    <ComboBox fx:id="cmbEstado"
+              prefWidth="370"/>
+
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <Button text="CANCELAR"
+                onAction="#cancelar"
+                style="-fx-background-color: #DC3545; -fx-text-fill: white;"/>
+
+        <Button text="GUARDAR"
+                onAction="#guardarHabitacion"
+                style="-fx-background-color: #198754; -fx-text-fill: white;"/>
+    </HBox>
+
+</VBox>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.luxury12.Controller.ReporteController"
+            prefWidth="950"
+            prefHeight="650"
+            style="-fx-background-color: #F3F5F9;">
+
+    <!-- ENCABEZADO -->
+    <top>
+        <VBox spacing="8"
+              style="-fx-background-color: #172033;">
+
+            <padding>
+                <Insets top="25" right="30" bottom="25" left="30"/>
+            </padding>
+
+            <Label text="HOTEL LUXURY - REPORTES"
+                   style="-fx-font-size: 25px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: white;"/>
+
+            <Label text="Panel de estadísticas y resumen general del hotel"
+                   style="-fx-font-size: 13px;
+                          -fx-text-fill: #CBD5E1;"/>
+
+        </VBox>
+    </top>
+
+    <!-- CONTENIDO -->
+    <center>
+
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent;
+                           -fx-background: transparent;">
+
+            <content>
+
+                <VBox spacing="25">
+
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <Label text="RESUMEN GENERAL"
+                           style="-fx-font-size: 19px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #172033;"/>
+
+                    <!-- PRIMERA FILA -->
+                    <HBox spacing="20">
+
+                        <!-- CLIENTES -->
+                        <VBox spacing="12"
+                              HBox.hgrow="ALWAYS"
+                              maxWidth="Infinity"
+                              style="-fx-background-color: white;
+                                     -fx-background-radius: 15;
+                                     -fx-border-radius: 15;
+                                     -fx-border-color: #E2E8F0;
+                                     -fx-effect: dropshadow(gaussian, #00000018, 10, 0, 0, 3);">
+
+                            <padding>
+                                <Insets top="22" right="20" bottom="22" left="20"/>
+                            </padding>
+
+                            <Label text="CLIENTES REGISTRADOS"
+                                   style="-fx-font-size: 12px;
+                                          -fx-text-fill: #64748B;"/>
+
+                            <Label fx:id="lblClientes"
+                                   text="0"
+                                   style="-fx-font-size: 32px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #2563EB;"/>
+
+                            <Label text="Total de clientes"
+                                   style="-fx-font-size: 11px;
+                                          -fx-text-fill: #94A3B8;"/>
+
+                        </VBox>
+
+                        <!-- HABITACIONES -->
+                        <VBox spacing="12"
+                              HBox.hgrow="ALWAYS"
+                              maxWidth="Infinity"
+                              style="-fx-background-color: white;
+                                     -fx-background-radius: 15;
+                                     -fx-border-radius: 15;
+                                     -fx-border-color: #E2E8F0;
+                                     -fx-effect: dropshadow(gaussian, #00000018, 10, 0, 0, 3);">
+
+                            <padding>
+                                <Insets top="22" right="20" bottom="22" left="20"/>
+                            </padding>
+
+                            <Label text="HABITACIONES"
+                                   style="-fx-font-size: 12px;
+                                          -fx-text-fill: #64748B;"/>
+
+                            <Label fx:id="lblHabitaciones"
+                                   text="0"
+                                   style="-fx-font-size: 32px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #D4A017;"/>
+
+                            <Label text="Habitaciones registradas"
+                                   style="-fx-font-size: 11px;
+                                          -fx-text-fill: #94A3B8;"/>
+
+                        </VBox>
+
+                        <!-- RESERVAS -->
+                        <VBox spacing="12"
+                              HBox.hgrow="ALWAYS"
+                              maxWidth="Infinity"
+                              style="-fx-background-color: white;
+                                     -fx-background-radius: 15;
+                                     -fx-border-radius: 15;
+                                     -fx-border-color: #E2E8F0;
+                                     -fx-effect: dropshadow(gaussian, #00000018, 10, 0, 0, 3);">
+
+                            <padding>
+                                <Insets top="22" right="20" bottom="22" left="20"/>
+                            </padding>
+
+                            <Label text="TOTAL DE RESERVAS"
+                                   style="-fx-font-size: 12px;
+                                          -fx-text-fill: #64748B;"/>
+
+                            <Label fx:id="lblReservas"
+                                   text="0"
+                                   style="-fx-font-size: 32px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #7C3AED;"/>
+
+                            <Label text="Reservas realizadas"
+                                   style="-fx-font-size: 11px;
+                                          -fx-text-fill: #94A3B8;"/>
+
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- SEGUNDA FILA -->
+                    <HBox spacing="20">
+
+                        <!-- ACTIVAS -->
+                        <VBox spacing="12"
+                              HBox.hgrow="ALWAYS"
+                              maxWidth="Infinity"
+                              style="-fx-background-color: white;
+                                     -fx-background-radius: 15;
+                                     -fx-border-radius: 15;
+                                     -fx-border-color: #E2E8F0;
+                                     -fx-effect: dropshadow(gaussian, #00000018, 10, 0, 0, 3);">
+
+                            <padding>
+                                <Insets top="22" right="20" bottom="22" left="20"/>
+                            </padding>
+
+                            <Label text="RESERVAS ACTIVAS"
+                                   style="-fx-font-size: 12px;
+                                          -fx-text-fill: #64748B;"/>
+
+                            <Label fx:id="lblActivas"
+                                   text="0"
+                                   style="-fx-font-size: 32px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #16A34A;"/>
+
+                            <Label text="Reservadas y ocupadas"
+                                   style="-fx-font-size: 11px;
+                                          -fx-text-fill: #94A3B8;"/>
+
+                        </VBox>
+
+                        <!-- CANCELADAS -->
+                        <VBox spacing="12"
+                              HBox.hgrow="ALWAYS"
+                              maxWidth="Infinity"
+                              style="-fx-background-color: white;
+                                     -fx-background-radius: 15;
+                                     -fx-border-radius: 15;
+                                     -fx-border-color: #E2E8F0;
+                                     -fx-effect: dropshadow(gaussian, #00000018, 10, 0, 0, 3);">
+
+                            <padding>
+                                <Insets top="22" right="20" bottom="22" left="20"/>
+                            </padding>
+
+                            <Label text="RESERVAS CANCELADAS"
+                                   style="-fx-font-size: 12px;
+                                          -fx-text-fill: #64748B;"/>
+
+                            <Label fx:id="lblCanceladas"
+                                   text="0"
+                                   style="-fx-font-size: 32px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #DC2626;"/>
+
+                            <Label text="Reservas anuladas"
+                                   style="-fx-font-size: 11px;
+                                          -fx-text-fill: #94A3B8;"/>
+
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- TARJETA DE IMPORTE -->
+                    <VBox spacing="15"
+                          style="-fx-background-color: #172033;
+                                 -fx-background-radius: 15;
+                                 -fx-effect: dropshadow(gaussian, #00000025, 12, 0, 0, 4);">
+
+                        <padding>
+                            <Insets top="25" right="30" bottom="25" left="30"/>
+                        </padding>
+
+                        <Label text="IMPORTE DE RESERVAS NO CANCELADAS"
+                               style="-fx-font-size: 14px;
+                                      -fx-text-fill: #CBD5E1;"/>
+
+                        <Label fx:id="lblIngresos"
+                               text="S/ 0.00"
+                               style="-fx-font-size: 38px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #F5C542;"/>
+
+                        <Label text="Valor total de reservas vigentes y finalizadas"
+                               style="-fx-font-size: 12px;
+                                      -fx-text-fill: #94A3B8;"/>
+
+                    </VBox>
+
+                    <!-- BOTÓN -->
+                    <HBox alignment="CENTER_RIGHT">
+
+                        <Button text="ACTUALIZAR REPORTES"
+                                onAction="#cargarReportes"
+                                prefHeight="42"
+                                style="-fx-background-color: #2563EB;
+                                       -fx-text-fill: white;
+                                       -fx-font-size: 13px;
+                                       -fx-font-weight: bold;
+                                       -fx-background-radius: 8;
+                                       -fx-cursor: hand;"/>
+
+                    </HBox>
+
+                </VBox>
+
+            </content>
+
+        </ScrollPane>
+
+    </center>
+
+</BorderPane>
