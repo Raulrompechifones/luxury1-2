@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
@@ -15,24 +14,25 @@
         fx:controller="pe.edu.upeu.luxury12.Controller.ClienteController"
         prefWidth="850"
         prefHeight="600"
-        style="-fx-background-color: #F5F6FA;">
+        style="-fx-background-color: #F4F6F9;">
 
     <top>
-        <VBox spacing="10"
-              style="-fx-background-color: #101820;">
+        <VBox spacing="7"
+              style="-fx-background-color: #101F2C;">
 
             <padding>
-                <Insets top="22" right="25" bottom="22" left="25"/>
+                <Insets top="22" right="28" bottom="22" left="28"/>
             </padding>
 
             <Label text="GESTIÓN DE CLIENTES"
                    style="-fx-font-size: 25px;
                           -fx-font-weight: bold;
-                          -fx-text-fill: #D4AF37;"/>
+                          -fx-text-fill: #D8B66A;"/>
 
-            <Label text="HOTEL LUXURY - Administración de clientes"
+            <Label text="HOTEL LUXURY | Administración de clientes"
                    style="-fx-font-size: 13px;
-                          -fx-text-fill: white;"/>
+                          -fx-text-fill: #E1E6EB;"/>
+
         </VBox>
     </top>
 
@@ -40,74 +40,152 @@
         <VBox spacing="18">
 
             <padding>
-                <Insets top="25" right="25" bottom="25" left="25"/>
+                <Insets top="25" right="25" bottom="22" left="25"/>
             </padding>
 
-            <HBox spacing="12">
+            <VBox spacing="5">
+
+                <Label text="Clientes registrados"
+                       style="-fx-font-size: 21px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #172B3A;"/>
+
+                <Label text="Consulta y administra la información de tus clientes."
+                       style="-fx-font-size: 12px;
+                              -fx-text-fill: #718096;"/>
+
+            </VBox>
+
+            <HBox spacing="10"
+                  alignment="CENTER_LEFT">
 
                 <TextField fx:id="txtBuscar"
-                           promptText="Buscar cliente por DNI"
-                           prefWidth="300"/>
+                           promptText="Buscar cliente por DNI..."
+                           prefWidth="300"
+                           prefHeight="38"
+                           style="-fx-background-color: white;
+                                  -fx-background-radius: 6;
+                                  -fx-border-color: #DCE2E8;
+                                  -fx-border-radius: 6;
+                                  -fx-padding: 8;
+                                  -fx-font-size: 12px;"/>
 
                 <Button text="BUSCAR"
-                        onAction="#buscarCliente"/>
+                        onAction="#buscarCliente"
+                        prefHeight="38"
+                        style="-fx-background-color: #172B3A;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 5;
+                               -fx-padding: 0 20 0 20;
+                               -fx-cursor: hand;"/>
 
                 <Button text="MOSTRAR TODOS"
-                        onAction="#listarClientes"/>
+                        onAction="#listarClientes"
+                        prefHeight="38"
+                        style="-fx-background-color: #E9EDF1;
+                               -fx-text-fill: #263B4D;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 5;
+                               -fx-padding: 0 15 0 15;
+                               -fx-cursor: hand;"/>
+
             </HBox>
 
-            <TableView fx:id="tablaClientes"
-                       VBox.vgrow="ALWAYS">
+            <VBox spacing="0"
+                  VBox.vgrow="ALWAYS"
+                  style="-fx-background-color: white;
+                         -fx-background-radius: 8;
+                         -fx-border-color: #E1E6EB;
+                         -fx-border-radius: 8;">
 
-                <columns>
+                <TableView fx:id="tablaClientes"
+                           VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: white;
+                                  -fx-background-radius: 8;
+                                  -fx-border-color: transparent;
+                                  -fx-table-cell-border-color: #EDF0F3;
+                                  -fx-selection-bar: #DCE8F0;
+                                  -fx-font-size: 12px;">
 
-                    <TableColumn fx:id="colId"
-                                 text="ID"
-                                 prefWidth="55"/>
+                    <columns>
 
-                    <TableColumn fx:id="colNombre"
-                                 text="Nombre"
-                                 prefWidth="125"/>
+                        <TableColumn fx:id="colId"
+                                     text="ID"
+                                     prefWidth="45"/>
 
-                    <TableColumn fx:id="colApellido"
-                                 text="Apellido"
-                                 prefWidth="125"/>
+                        <TableColumn fx:id="colNombre"
+                                     text="Nombre"
+                                     prefWidth="110"/>
 
-                    <TableColumn fx:id="colDni"
-                                 text="DNI"
-                                 prefWidth="100"/>
+                        <TableColumn fx:id="colApellido"
+                                     text="Apellido"
+                                     prefWidth="110"/>
 
-                    <TableColumn fx:id="colTelefono"
-                                 text="Teléfono"
-                                 prefWidth="110"/>
+                        <TableColumn fx:id="colDni"
+                                     text="DNI"
+                                     prefWidth="90"/>
 
-                    <TableColumn fx:id="colEmail"
-                                 text="Email"
-                                 prefWidth="170"/>
+                        <TableColumn fx:id="colTelefono"
+                                     text="Teléfono"
+                                     prefWidth="105"/>
 
-                    <TableColumn fx:id="colPersonas"
-                                 text="Personas"
-                                 prefWidth="80"/>
+                        <TableColumn fx:id="colEmail"
+                                     text="Correo electrónico"
+                                     prefWidth="165"/>
 
-                </columns>
-            </TableView>
+                        <TableColumn fx:id="colPersonas"
+                                     text="Personas"
+                                     prefWidth="85"/>
 
-            <HBox spacing="12">
+                    </columns>
 
-                <Button text="+ REGISTRAR"
+                </TableView>
+
+            </VBox>
+
+            <HBox spacing="10"
+                  alignment="CENTER_LEFT">
+
+                <Button text="+ REGISTRAR CLIENTE"
                         onAction="#registrarCliente"
-                        style="-fx-background-color: #D4AF37;
-                               -fx-text-fill: #101820;
-                               -fx-font-weight: bold;"/>
+                        prefHeight="39"
+                        style="-fx-background-color: #D8B66A;
+                               -fx-text-fill: #172B3A;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 5;
+                               -fx-padding: 0 17 0 17;
+                               -fx-cursor: hand;"/>
 
                 <Button text="EDITAR"
-                        onAction="#editarCliente"/>
+                        onAction="#editarCliente"
+                        prefHeight="39"
+                        style="-fx-background-color: #172B3A;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 5;
+                               -fx-padding: 0 22 0 22;
+                               -fx-cursor: hand;"/>
 
                 <Button text="ELIMINAR"
-                        onAction="#eliminarCliente"/>
+                        onAction="#eliminarCliente"
+                        prefHeight="39"
+                        style="-fx-background-color: #B94747;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 5;
+                               -fx-padding: 0 22 0 22;
+                               -fx-cursor: hand;"/>
 
                 <Button text="ACTUALIZAR"
-                        onAction="#actualizarClientes"/>
+                        onAction="#actualizarClientes"
+                        prefHeight="39"
+                        style="-fx-background-color: #E9EDF1;
+                               -fx-text-fill: #263B4D;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 5;
+                               -fx-padding: 0 18 0 18;
+                               -fx-cursor: hand;"/>
 
             </HBox>
 

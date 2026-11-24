@@ -1,174 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="pe.edu.upeu.luxury12.Controller.MainController"
-            prefWidth="1200"
-            prefHeight="750"
-            style="-fx-background-color: #F5F7FA;">
+            prefWidth="1220"
+            prefHeight="780"
+            minWidth="900"
+            minHeight="600"
+            style="-fx-background-color: #F5F6F8;">
 
-    <!-- MENÚ LATERAL -->
-    <left>
-        <VBox prefWidth="235"
+    <top>
+        <HBox alignment="CENTER_LEFT"
               spacing="12"
-              style="-fx-background-color: #071827;
-                     -fx-padding: 20;">
+              prefHeight="58"
+              minHeight="58"
+              style="-fx-background-color: #0D1E2B; -fx-padding: 0 22 0 22;">
 
-            <!-- LOGOTIPO -->
-            <VBox alignment="CENTER"
-                  spacing="5"
-                  style="-fx-padding: 10 0 25 0;">
+            <Label text="♛"
+                   style="-fx-font-size: 27px; -fx-text-fill: #D8B66A;"/>
 
-                <Label text="♛"
-                       style="-fx-font-size: 40px;
-                              -fx-text-fill: #D4AF37;"/>
-
+            <VBox spacing="1">
                 <Label text="HOTEL LUXURY"
-                       style="-fx-font-family: Georgia;
-                              -fx-font-size: 22px;
-                              -fx-font-weight: bold;
-                              -fx-text-fill: #D4AF37;"/>
-
-                <Label text="GESTIÓN HOTELERA"
-                       style="-fx-font-size: 11px;
-                              -fx-text-fill: #A8B8C8;"/>
+                       style="-fx-font-family: Georgia; -fx-font-size: 19px; -fx-font-weight: bold; -fx-text-fill: #E2C477;"/>
+                <Label text="SISTEMA DE GESTIÓN HOTELERA"
+                       style="-fx-font-size: 9px; -fx-text-fill: #DCE2E8;"/>
             </VBox>
 
-            <!-- NAVEGACIÓN -->
-            <Button text="⌂   INICIO"
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="●"
+                   style="-fx-font-size: 15px; -fx-text-fill: #D8B66A;"/>
+
+            <VBox spacing="1" alignment="CENTER_RIGHT">
+                <Label fx:id="lblUsuarioActual"
+                       text="Usuario"
+                       style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label fx:id="lblRolActual"
+                       text="Rol"
+                       style="-fx-font-size: 10px; -fx-text-fill: #D8B66A;"/>
+            </VBox>
+
+        </HBox>
+    </top>
+
+    <left>
+        <VBox prefWidth="190"
+              minWidth="190"
+              spacing="9"
+              alignment="TOP_CENTER"
+              style="-fx-background-color: #0D1E2B; -fx-padding: 22 12 15 12;">
+
+            <Label text="MENÚ PRINCIPAL"
+                   maxWidth="Infinity"
+                   style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8999A7; -fx-padding: 5 8 12 8;"/>
+
+            <Button text="⌂    Inicio"
                     onAction="#mostrarInicio"
                     maxWidth="Infinity"
                     prefHeight="43"
-                    style="-fx-background-color: #D4AF37;
-                           -fx-text-fill: #071827;
-                           -fx-font-weight: bold;
-                           -fx-background-radius: 8;
-                           -fx-cursor: hand;"/>
+                    style="-fx-background-color: #80632D; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-background-radius: 5; -fx-cursor: hand;"/>
 
-            <Button text="♟   CLIENTES"
+            <Button text="♟    Clientes"
                     onAction="#mostrarClientes"
                     maxWidth="Infinity"
                     prefHeight="43"
-                    style="-fx-background-color: transparent;
-                           -fx-text-fill: white;
-                           -fx-font-size: 13px;
-                           -fx-alignment: CENTER_LEFT;
-                           -fx-cursor: hand;"/>
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
 
-            <Button text="▣   HABITACIONES"
+            <Button text="▣    Habitaciones"
                     onAction="#mostrarHabitaciones"
                     maxWidth="Infinity"
                     prefHeight="43"
-                    style="-fx-background-color: transparent;
-                           -fx-text-fill: white;
-                           -fx-font-size: 13px;
-                           -fx-alignment: CENTER_LEFT;
-                           -fx-cursor: hand;"/>
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
 
-            <Button text="▦   RESERVAS"
+            <Button text="▦    Reservas"
                     onAction="#mostrarReservas"
                     maxWidth="Infinity"
                     prefHeight="43"
-                    style="-fx-background-color: transparent;
-                           -fx-text-fill: white;
-                           -fx-font-size: 13px;
-                           -fx-alignment: CENTER_LEFT;
-                           -fx-cursor: hand;"/>
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
 
             <Button fx:id="btnUsuarios"
-                    text="♟   USUARIOS"
+                    text="♟    Usuarios"
                     onAction="#mostrarUsuarios"
                     maxWidth="Infinity"
                     prefHeight="43"
-                    style="-fx-background-color: transparent;
-                           -fx-text-fill: white;
-                           -fx-font-size: 13px;
-                           -fx-alignment: CENTER_LEFT;
-                           -fx-cursor: hand;"/>
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
 
             <Button fx:id="btnReportes"
-                    text="▥   REPORTES"
+                    text="▥    Reportes"
                     onAction="#mostrarReportes"
                     maxWidth="Infinity"
                     prefHeight="43"
-                    style="-fx-background-color: transparent;
-                           -fx-text-fill: white;
-                           -fx-font-size: 13px;
-                           -fx-alignment: CENTER_LEFT;
-                           -fx-cursor: hand;"/>
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
 
-            <!-- ESPACIO FLEXIBLE -->
             <Region VBox.vgrow="ALWAYS"/>
 
-            <!-- CERRAR SESIÓN -->
-            <Button text="⏻   CERRAR SESIÓN"
+            <Button text="⏻    Cerrar sesión"
                     onAction="#cerrarSesion"
                     maxWidth="Infinity"
-                    prefHeight="45"
-                    style="-fx-background-color: #10283C;
-                           -fx-text-fill: white;
-                           -fx-font-weight: bold;
-                           -fx-background-radius: 8;
-                           -fx-cursor: hand;"/>
+                    prefHeight="43"
+                    style="-fx-background-color: #172C3B; -fx-text-fill: white; -fx-font-size: 12px; -fx-alignment: CENTER_LEFT; -fx-background-radius: 5; -fx-cursor: hand;"/>
 
         </VBox>
     </left>
 
-    <!-- PARTE CENTRAL Y CABECERA -->
     <center>
-        <BorderPane>
+        <StackPane fx:id="panelContenido"
+                   alignment="CENTER"
+                   style="-fx-background-color: #F5F6F8; -fx-padding: 25;">
 
-            <!-- BARRA SUPERIOR -->
-            <top>
-                <HBox alignment="CENTER_LEFT"
-                      spacing="15"
-                      prefHeight="65"
-                      style="-fx-background-color: #071827;
-                             -fx-padding: 10 25;">
+            <Label text="BIENVENIDO AL SISTEMA HOTEL LUXURY"
+                   wrapText="true"
+                   alignment="CENTER"
+                   maxWidth="Infinity"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #172B3A;"/>
 
-                    <Label text="HOTEL LUXURY"
-                           style="-fx-font-size: 17px;
-                                  -fx-font-weight: bold;
-                                  -fx-text-fill: #D4AF37;"/>
-
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <VBox alignment="CENTER_RIGHT"
-                          spacing="3">
-
-                        <Label fx:id="lblUsuarioActual"
-                               text="Usuario"
-                               style="-fx-font-size: 14px;
-                                      -fx-font-weight: bold;
-                                      -fx-text-fill: white;"/>
-
-                        <Label fx:id="lblRolActual"
-                               text="Rol"
-                               style="-fx-font-size: 11px;
-                                      -fx-text-fill: #D4AF37;"/>
-                    </VBox>
-
-                </HBox>
-            </top>
-
-            <!-- CONTENIDO DE LOS MÓDULOS -->
-            <center>
-                <StackPane fx:id="panelContenido"
-                           alignment="CENTER"
-                           style="-fx-background-color: #F5F7FA;">
-
-                    <Label text="BIENVENIDO A HOTEL LUXURY"
-                           style="-fx-font-size: 25px;
-                                  -fx-font-weight: bold;
-                                  -fx-text-fill: #071827;"/>
-
-                </StackPane>
-            </center>
-
-        </BorderPane>
+        </StackPane>
     </center>
 
 </BorderPane>
