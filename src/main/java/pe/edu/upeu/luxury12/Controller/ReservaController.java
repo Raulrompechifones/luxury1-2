@@ -10,15 +10,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import pe.edu.upeu.luxury12.Entidad.Reserva;
 import pe.edu.upeu.luxury12.implementacion.ReservaDaoImpl;
 import pe.edu.upeu.luxury12.interfaces.IReservaDao;
-
-import javafx.collections.FXCollections;
-import javafx.scene.control.ListCell;
-
-import pe.edu.upeu.luxury12.implementacion.ClienteDaoImpl;
-import pe.edu.upeu.luxury12.interfaces.IClienteDao;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -51,9 +46,13 @@ public class ReservaController {
 
     private final IReservaDao reservaDao = new ReservaDaoImpl();
 
-
     @FXML
     public void initialize() {
+
+        // Ajustar las columnas al ancho de la tabla
+        tablaReservas.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY
+        );
 
         colId.setCellValueFactory(
                 new PropertyValueFactory<>("idReserva")
@@ -65,8 +64,8 @@ public class ReservaController {
             String nombre = "";
 
             if (r.getCliente() != null) {
-                nombre = r.getCliente().getNombre() + " " +
-                        r.getCliente().getApellido();
+                nombre = r.getCliente().getNombre() + " "
+                        + r.getCliente().getApellido();
             }
 
             return new javafx.beans.property.SimpleStringProperty(nombre);
@@ -118,9 +117,23 @@ public class ReservaController {
     }
 
     private void listarReservas() {
-        tablaReservas.setItems(
-                FXCollections.observableArrayList(reservaDao.listar())
-        );
+        try {
+            tablaReservas.setItems(
+                    FXCollections.observableArrayList(reservaDao.listar())
+            );
+
+            System.out.println("Reservas cargadas: "
+                    + tablaReservas.getItems().size());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("HOTEL LUXURY");
+            alerta.setHeaderText("Error al listar reservas");
+            alerta.setContentText(e.getMessage());
+            alerta.showAndWait();
+        }
     }
 
     @FXML
@@ -132,7 +145,6 @@ public class ReservaController {
     private void registrarReserva() {
         abrirFormulario(null);
     }
-
 
     @FXML
     private void editarReserva() {
@@ -148,7 +160,6 @@ public class ReservaController {
         abrirFormulario(seleccionada);
     }
 
-
     @FXML
     private void eliminarReserva() {
 
@@ -156,9 +167,7 @@ public class ReservaController {
                 tablaReservas.getSelectionModel().getSelectedItem();
 
         if (seleccionada == null) {
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setContentText("Seleccione una reserva para eliminar.");
-            alerta.showAndWait();
+            mostrarMensaje("Seleccione una reserva para eliminar.");
             return;
         }
 
@@ -177,22 +186,16 @@ public class ReservaController {
 
         if (reservaDao.eliminar(seleccionada)) {
 
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setContentText("Reserva eliminada correctamente.");
-            alerta.showAndWait();
-
+            mostrarMensaje("Reserva eliminada correctamente.");
             listarReservas();
 
         } else {
-
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setContentText("No se pudo eliminar la reserva.");
-            alerta.showAndWait();
+            new Alert(Alert.AlertType.ERROR,
+                    "No se pudo eliminar la reserva.").showAndWait();
         }
     }
 
     private void mostrarMensaje(String mensaje) {
-
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle("HOTEL LUXURY");
         alerta.setHeaderText(null);
@@ -222,15 +225,13 @@ public class ReservaController {
             ventana.setScene(new Scene(root));
             ventana.initModality(Modality.APPLICATION_MODAL);
             ventana.setResizable(false);
-
             ventana.showAndWait();
 
             listarReservas();
 
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarMensaje("No se pudo abrir el formulario");
+            mostrarMensaje("No se pudo abrir el formulario: " + e.getMessage());
         }
     }
-
 }

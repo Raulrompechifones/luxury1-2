@@ -145,13 +145,23 @@ public class MainController {
                     )
             );
 
-            Parent vista = loader.load();
-            panelContenido.getChildren().setAll(vista);
+            Parent vistaReservas = loader.load();
+            panelContenido.getChildren().setAll(vistaReservas);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("HOTEL LUXURY");
+            alerta.setHeaderText("Error al abrir reservas");
+            alerta.setContentText(
+                    "No se pudo cargar la vista de reservas: " + e.getMessage()
+            );
+            alerta.showAndWait();
         }
     }
+
+
 
     @FXML
     private void mostrarReportes() {
@@ -332,9 +342,9 @@ public class MainController {
         );
 
         StackPane banner = new StackPane();
-        banner.setPrefHeight(420);
-        banner.setMinHeight(370);
-        banner.setMaxHeight(420);
+        banner.setPrefHeight(330);
+        banner.setMinHeight(280);
+        banner.setMaxHeight(330);
         banner.setStyle(
                 "-fx-background-color: #102638;" +
                         "-fx-background-radius: 8;"

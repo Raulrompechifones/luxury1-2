@@ -7,49 +7,91 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="pe.edu.upeu.luxury12.Controller.ReservaController"
             prefWidth="1000"
-            prefHeight="650">
+            prefHeight="650"
+            style="-fx-background-color: #F4F6F9;">
 
     <top>
-        <VBox spacing="15" style="-fx-background-color: #172033;">
+        <VBox spacing="10"
+              style="-fx-background-color: #102638;
+                     -fx-background-radius: 0 0 12 12;">
+
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets top="25" right="30" bottom="25" left="30"/>
             </padding>
 
-            <Label text="HOTEL LUXURY - GESTIÓN DE RESERVAS"
-                   style="-fx-font-size: 23px;
+            <Label text="HOTEL LUXURY"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #D6B66C;"/>
+
+            <Label text="GESTIÓN DE RESERVAS"
+                   style="-fx-font-size: 27px;
                           -fx-font-weight: bold;
                           -fx-text-fill: white;"/>
 
-            <Label text="Administración de reservas del hotel"
-                   style="-fx-text-fill: #D1D5DB;"/>
+            <Label text="Administra y controla las reservas de tus huéspedes"
+                   style="-fx-font-size: 13px;
+                          -fx-text-fill: #D5DDE5;"/>
         </VBox>
     </top>
 
     <center>
-        <VBox spacing="15">
+        <VBox spacing="20">
 
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets top="25" right="30" bottom="25" left="30"/>
             </padding>
 
-            <HBox spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+
+                <VBox spacing="4">
+                    <Label text="Reservas registradas"
+                           style="-fx-font-size: 18px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #102638;"/>
+
+                    <Label text="Listado general de reservas del hotel"
+                           style="-fx-font-size: 12px;
+                                  -fx-text-fill: #718096;"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
 
                 <Button text="REGISTRAR"
                         onAction="#registrarReserva"
-                        style="-fx-background-color: #16A34A;
-                               -fx-text-fill: white;"/>
+                        style="-fx-background-color: #102638;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 6;
+                               -fx-padding: 11 18;
+                               -fx-cursor: hand;"/>
 
                 <Button text="EDITAR"
                         onAction="#editarReserva"
-                        style="-fx-background-color: #2563EB;
-                               -fx-text-fill: white;"/>
+                        style="-fx-background-color: #B58A36;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 6;
+                               -fx-padding: 11 18;
+                               -fx-cursor: hand;"/>
 
                 <Button text="ELIMINAR"
                         onAction="#eliminarReserva"
-                        style="-fx-background-color: #C0392B; -fx-text-fill: white;"/>
+                        style="-fx-background-color: #A93232;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 6;
+                               -fx-padding: 11 18;
+                               -fx-cursor: hand;"/>
 
                 <Button text="ACTUALIZAR"
-                        onAction="#actualizarReservas"/>
+                        onAction="#actualizarReservas"
+                        style="-fx-background-color: #E8EDF2;
+                               -fx-text-fill: #102638;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 6;
+                               -fx-padding: 11 18;
+                               -fx-cursor: hand;"/>
 
             </HBox>
 
@@ -57,6 +99,7 @@
                        VBox.vgrow="ALWAYS">
 
                 <columns>
+
                     <TableColumn fx:id="colId"
                                  text="ID"
                                  prefWidth="55"/>
@@ -84,9 +127,36 @@
                     <TableColumn fx:id="colEstado"
                                  text="ESTADO"
                                  prefWidth="120"/>
+
                 </columns>
 
+                <placeholder>
+                    <VBox alignment="CENTER" spacing="10">
+
+                        <Label text="▦"
+                               style="-fx-font-size: 38px;
+                                      -fx-text-fill: #B58A36;"/>
+
+                        <Label text="No hay reservas registradas"
+                               style="-fx-font-size: 15px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #64748B;"/>
+
+                        <Label text="Las reservas aparecerán aquí cuando las registres"
+                               style="-fx-font-size: 12px;
+                                      -fx-text-fill: #94A3B8;"/>
+
+                    </VBox>
+                </placeholder>
+
             </TableView>
+
+            <HBox alignment="CENTER_RIGHT">
+                <Label text="HOTEL LUXURY  |  SISTEMA DE GESTIÓN HOTELERA"
+                       style="-fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #94A3B8;"/>
+            </HBox>
 
         </VBox>
     </center>
