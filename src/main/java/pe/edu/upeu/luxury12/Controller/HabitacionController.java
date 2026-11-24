@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.stage.Modality;
@@ -36,6 +33,8 @@ public class HabitacionController {
 
     @FXML
     private TableColumn<Habitacion, String> colTipo;
+    @FXML
+    private TextField txtBuscar;
 
     @FXML
     private TableColumn<Habitacion, Double> colPrecio;
@@ -168,6 +167,17 @@ public class HabitacionController {
             e.printStackTrace();
             mostrarAlerta("No se pudo abrir el formulario.");
         }
+    }
+    @FXML
+    private void buscarHabitacion() {
+        String buscar = txtBuscar.getText().trim().toLowerCase();
+
+        if (buscar.isEmpty()) {
+            actualizarHabitaciones();
+            return;
+        }
+
+        // Aquí se debe aplicar el filtro usando los datos de tu tabla.
     }
 
 

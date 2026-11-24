@@ -1,96 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
+<BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="pe.edu.upeu.luxury12.Controller.HabitacionController"
-            prefWidth="950"
-            prefHeight="600"
-            style="-fx-background-color: #F5F6FA;">
+            prefWidth="1000"
+            prefHeight="650"
+            style="-fx-background-color: #F4F6F9;">
 
-    <children>
+    <top>
+        <VBox spacing="15" style="-fx-background-color: white;">
+            <padding>
+                <Insets top="22" right="25" bottom="18" left="25"/>
+            </padding>
 
-        <Label text="GESTIÓN DE HABITACIONES"
-               layoutX="30"
-               layoutY="25"
-               style="-fx-font-size: 25px;
-                      -fx-font-weight: bold;
-                      -fx-text-fill: #1B263B;"/>
+            <Label text="GESTIÓN DE HABITACIONES"
+                   style="-fx-font-size: 23px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #172B4D;"/>
 
-        <Label text="Administración de habitaciones - HOTEL LUXURY"
-               layoutX="30"
-               layoutY="65"
-               style="-fx-font-size: 14px;
-                      -fx-text-fill: #666666;"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="txtBuscar"
+                           promptText="Buscar habitación..."
+                           prefWidth="300"
+                           onAction="#buscarHabitacion"
+                           style="-fx-background-radius: 6;
+                                  -fx-border-radius: 6;
+                                  -fx-border-color: #D5DCE5;
+                                  -fx-padding: 10;"/>
 
-        <HBox layoutX="30"
-              layoutY="110"
-              spacing="12">
+                <Region HBox.hgrow="ALWAYS"/>
 
-            <children>
-
-                <Button text="REGISTRAR"
+                <Button text="+ REGISTRAR"
                         onAction="#registrarHabitacion"
-                        prefWidth="125"
-                        style="-fx-background-color: #198754;
-                               -fx-text-fill: white;"/>
+                        style="-fx-background-color: #17365D;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-padding: 10 18;
+                               -fx-background-radius: 5;"/>
 
                 <Button text="EDITAR"
                         onAction="#editarHabitacion"
-                        prefWidth="125"
-                        style="-fx-background-color: #0D6EFD;
-                               -fx-text-fill: white;"/>
+                        style="-fx-background-color: #D9A441;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-padding: 10 18;
+                               -fx-background-radius: 5;"/>
 
                 <Button text="ELIMINAR"
                         onAction="#eliminarHabitacion"
-                        prefWidth="125"
-                        style="-fx-background-color: #DC3545;
-                               -fx-text-fill: white;"/>
+                        style="-fx-background-color: #C0392B;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-padding: 10 18;
+                               -fx-background-radius: 5;"/>
 
                 <Button text="ACTUALIZAR"
-                        prefWidth="125"
                         onAction="#actualizarHabitaciones"
-                        style="-fx-background-color: #D4AF37;
-                               -fx-text-fill: black;"/>
+                        style="-fx-background-color: #2874A6;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-padding: 10 18;
+                               -fx-background-radius: 5;"/>
+            </HBox>
+        </VBox>
+    </top>
 
-            </children>
-        </HBox>
+    <center>
+        <VBox spacing="12" style="-fx-background-color: #F4F6F9;">
+            <padding>
+                <Insets top="20" right="25" bottom="25" left="25"/>
+            </padding>
 
-        <TableView fx:id="tablaHabitaciones"
-                   layoutX="30"
-                   layoutY="175"
-                   prefWidth="890"
-                   prefHeight="380">
+            <Label text="Listado de habitaciones"
+                   style="-fx-font-size: 17px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #263A53;"/>
 
-            <columns>
+            <TableView fx:id="tablaHabitaciones"
+                       VBox.vgrow="ALWAYS"
+                       prefHeight="480"
+                       style="-fx-background-color: white;
+                              -fx-border-color: #DCE2EA;
+                              -fx-border-radius: 6;">
 
-                <TableColumn fx:id="colId"
-                             text="ID"
-                             prefWidth="65"/>
+                <columns>
+                    <TableColumn fx:id="colId"
+                                 text="ID"
+                                 prefWidth="110"/>
 
-                <TableColumn fx:id="colCodigo"
-                             text="CÓDIGO"
-                             prefWidth="140"/>
+                    <TableColumn fx:id="colCodigo"
+                                 text="CÓDIGO"
+                                 prefWidth="290"/>
 
-                <TableColumn fx:id="colNumero"
-                             text="NÚMERO"
-                             prefWidth="120"/>
+                    <TableColumn fx:id="colNumero"
+                                 text="NÚMERO"
+                                 prefWidth="270"/>
 
-                <TableColumn fx:id="colTipo"
-                             text="TIPO"
-                             prefWidth="150"/>
+                    <TableColumn fx:id="colTipo"
+                                 text="TIPO"
+                                 prefWidth="310"/>
 
-                <TableColumn fx:id="colPrecio"
-                             text="PRECIO"
-                             prefWidth="140"/>
+                    <TableColumn fx:id="colPrecio"
+                                 text="PRECIO (S/)"
+                                 prefWidth="290"/>
 
-                <TableColumn fx:id="colEstado"
-                             text="ESTADO"
-                             prefWidth="270"/>
+                    <TableColumn fx:id="colEstado"
+                                 text="ESTADO"
+                                 prefWidth="290"/>
+                </columns>
 
-            </columns>
-        </TableView>
+                <placeholder>
+                    <Label text="No hay habitaciones registradas"
+                           style="-fx-text-fill: #7B8794;
+                                  -fx-font-size: 14px;"/>
+                </placeholder>
 
-    </children>
-</AnchorPane>
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>
