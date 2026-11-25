@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="pe.edu.upeu.luxury12.Controller.ReservaController"
@@ -11,153 +11,125 @@
             style="-fx-background-color: #F4F6F9;">
 
     <top>
-        <VBox spacing="10"
-              style="-fx-background-color: #102638;
-                     -fx-background-radius: 0 0 12 12;">
-
+        <VBox spacing="18" style="-fx-background-color: white;">
             <padding>
-                <Insets top="25" right="30" bottom="25" left="30"/>
+                <Insets top="25" right="30" bottom="22" left="30"/>
             </padding>
 
-            <Label text="HOTEL LUXURY"
-                   style="-fx-font-size: 13px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #D6B66C;"/>
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="▣"
+                       style="-fx-font-size: 27px;
+                              -fx-text-fill: #17365D;"/>
 
-            <Label text="GESTIÓN DE RESERVAS"
-                   style="-fx-font-size: 27px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: white;"/>
+                <Label text="Reservas"
+                       style="-fx-font-size: 25px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #17365D;"/>
 
-            <Label text="Administra y controla las reservas de tus huéspedes"
-                   style="-fx-font-size: 13px;
-                          -fx-text-fill: #D5DDE5;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="+ Nueva Reserva"
+                        onAction="#registrarReserva"
+                        style="-fx-background-color: #17365D;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 13px;
+                               -fx-padding: 12 20;
+                               -fx-background-radius: 6;"/>
+            </HBox>
+
+            <TextField promptText="⌕  Buscar por cliente o habitación..."
+                       prefHeight="43"
+                       maxWidth="Infinity"
+                       style="-fx-background-color: white;
+                              -fx-border-color: #DCE2EA;
+                              -fx-border-radius: 6;
+                              -fx-background-radius: 6;
+                              -fx-padding: 10;
+                              -fx-font-size: 13px;"/>
         </VBox>
     </top>
 
     <center>
-        <VBox spacing="20">
-
+        <VBox spacing="15"
+              style="-fx-background-color: #F4F6F9;">
             <padding>
                 <Insets top="25" right="30" bottom="25" left="30"/>
             </padding>
 
-            <HBox alignment="CENTER_LEFT" spacing="12">
-
-                <VBox spacing="4">
-                    <Label text="Reservas registradas"
-                           style="-fx-font-size: 18px;
-                                  -fx-font-weight: bold;
-                                  -fx-text-fill: #102638;"/>
-
-                    <Label text="Listado general de reservas del hotel"
-                           style="-fx-font-size: 12px;
-                                  -fx-text-fill: #718096;"/>
-                </VBox>
-
-                <Region HBox.hgrow="ALWAYS"/>
-
-                <Button text="REGISTRAR"
-                        onAction="#registrarReserva"
-                        style="-fx-background-color: #102638;
-                               -fx-text-fill: white;
-                               -fx-font-weight: bold;
-                               -fx-background-radius: 6;
-                               -fx-padding: 11 18;
-                               -fx-cursor: hand;"/>
-
-                <Button text="EDITAR"
-                        onAction="#editarReserva"
-                        style="-fx-background-color: #B58A36;
-                               -fx-text-fill: white;
-                               -fx-font-weight: bold;
-                               -fx-background-radius: 6;
-                               -fx-padding: 11 18;
-                               -fx-cursor: hand;"/>
-
-                <Button text="ELIMINAR"
-                        onAction="#eliminarReserva"
-                        style="-fx-background-color: #A93232;
-                               -fx-text-fill: white;
-                               -fx-font-weight: bold;
-                               -fx-background-radius: 6;
-                               -fx-padding: 11 18;
-                               -fx-cursor: hand;"/>
-
-                <Button text="ACTUALIZAR"
-                        onAction="#actualizarReservas"
-                        style="-fx-background-color: #E8EDF2;
-                               -fx-text-fill: #102638;
-                               -fx-font-weight: bold;
-                               -fx-background-radius: 6;
-                               -fx-padding: 11 18;
-                               -fx-cursor: hand;"/>
-
-            </HBox>
-
             <TableView fx:id="tablaReservas"
-                       VBox.vgrow="ALWAYS">
+                       VBox.vgrow="ALWAYS"
+                       prefHeight="480"
+                       style="-fx-background-color: white;
+                              -fx-border-color: #E0E5EB;
+                              -fx-border-radius: 8;
+                              -fx-background-radius: 8;">
 
                 <columns>
 
                     <TableColumn fx:id="colId"
-                                 text="ID"
-                                 prefWidth="55"/>
+                                 text="N°"
+                                 prefWidth="90"/>
 
                     <TableColumn fx:id="colCliente"
                                  text="CLIENTE"
-                                 prefWidth="180"/>
+                                 prefWidth="230"/>
 
                     <TableColumn fx:id="colHabitacion"
                                  text="HABITACIÓN"
-                                 prefWidth="130"/>
+                                 prefWidth="170"/>
 
                     <TableColumn fx:id="colIngreso"
-                                 text="INGRESO"
-                                 prefWidth="115"/>
+                                 text="FECHA INGRESO"
+                                 prefWidth="200"/>
 
                     <TableColumn fx:id="colSalida"
-                                 text="SALIDA"
-                                 prefWidth="115"/>
+                                 text="FECHA SALIDA"
+                                 prefWidth="200"/>
 
                     <TableColumn fx:id="colTotal"
-                                 text="TOTAL S/"
-                                 prefWidth="110"/>
+                                 text="TOTAL (S/)"
+                                 prefWidth="150"/>
 
                     <TableColumn fx:id="colEstado"
                                  text="ESTADO"
-                                 prefWidth="120"/>
+                                 prefWidth="170"/>
 
                 </columns>
 
                 <placeholder>
-                    <VBox alignment="CENTER" spacing="10">
-
-                        <Label text="▦"
-                               style="-fx-font-size: 38px;
-                                      -fx-text-fill: #B58A36;"/>
-
-                        <Label text="No hay reservas registradas"
-                               style="-fx-font-size: 15px;
-                                      -fx-font-weight: bold;
-                                      -fx-text-fill: #64748B;"/>
-
-                        <Label text="Las reservas aparecerán aquí cuando las registres"
-                               style="-fx-font-size: 12px;
-                                      -fx-text-fill: #94A3B8;"/>
-
-                    </VBox>
+                    <Label text="No hay reservas registradas"
+                           style="-fx-font-size: 14px;
+                                  -fx-text-fill: #7B8794;"/>
                 </placeholder>
 
             </TableView>
 
-            <HBox alignment="CENTER_RIGHT">
-                <Label text="HOTEL LUXURY  |  SISTEMA DE GESTIÓN HOTELERA"
-                       style="-fx-font-size: 10px;
-                              -fx-font-weight: bold;
-                              -fx-text-fill: #94A3B8;"/>
-            </HBox>
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <Button text="ACTUALIZAR"
+                        onAction="#actualizarReservas"
+                        style="-fx-background-color: #2874A6;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-padding: 10 18;
+                               -fx-background-radius: 5;"/>
 
+                <Button text="EDITAR"
+                        onAction="#editarReserva"
+                        style="-fx-background-color: #D9A441;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-padding: 10 18;
+                               -fx-background-radius: 5;"/>
+
+                <Button text="ELIMINAR"
+                        onAction="#eliminarReserva"
+                        style="-fx-background-color: #C0392B;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-padding: 10 18;
+                               -fx-background-radius: 5;"/>
+            </HBox>
         </VBox>
     </center>
 
