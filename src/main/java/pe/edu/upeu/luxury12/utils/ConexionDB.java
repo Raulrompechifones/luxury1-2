@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class ConexionDB {
 
     private static final String URL =
-            "jdbc:sqlite:C:/sqlite/hotel_luxury.db";
+            "jdbc:sqlite:C:/sqlite/db/hotel_luxury.db";
 
     public static Connection getConnection() {
 
