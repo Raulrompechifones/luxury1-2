@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import pe.edu.upeu.luxury12.Entidad.Usuarios;
 import pe.edu.upeu.luxury12.implementacion.UsuariosDaoImpl;
 import pe.edu.upeu.luxury12.interfaces.IUsuarioDao;
+import pe.edu.upeu.luxury12.utils.SesionUsuario;
 
 import java.io.IOException;
 
@@ -26,7 +27,6 @@ public class PortadaController {
     private PasswordField txtClave;
 
     private final IUsuarioDao usuarioDao = new UsuariosDaoImpl();
-
 
     @FXML
     private void iniciarSesion(ActionEvent event) {
@@ -43,10 +43,13 @@ public class PortadaController {
         Usuarios usuarioEncontrado = usuarioDao.login(usuario, clave);
 
         if (usuarioEncontrado == null) {
-            mostrarMensaje("Acceso denegado", "Usuario o contraseña incorrectos, o cuenta inactiva."
-            );
+            mostrarMensaje("Acceso denegado",
+                    "Usuario o contraseña incorrectos, o cuenta inactiva.");
             return;
         }
+
+        // Registra la sesión global antes de abrir el menú principal
+        SesionUsuario.iniciarSesion(usuarioEncontrado);
 
         try {
 
@@ -72,6 +75,7 @@ public class PortadaController {
             stage.centerOnScreen();
 
         } catch (IOException e) {
+            SesionUsuario.cerrarSesion();
             e.printStackTrace();
 
             mostrarMensaje(
@@ -80,7 +84,6 @@ public class PortadaController {
             );
         }
     }
-
 
     @FXML
     private void registrarUsuario() {
@@ -109,7 +112,6 @@ public class PortadaController {
             );
         }
     }
-
 
     private void mostrarMensaje(String titulo, String mensaje) {
 

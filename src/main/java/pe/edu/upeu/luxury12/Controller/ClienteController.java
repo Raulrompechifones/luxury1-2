@@ -1,24 +1,23 @@
-
 package pe.edu.upeu.luxury12.Controller;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pe.edu.upeu.luxury12.Entidad.Cliente;
 import pe.edu.upeu.luxury12.implementacion.ClienteDaoImpl;
 import pe.edu.upeu.luxury12.interfaces.IClienteDao;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class ClienteController {
 
@@ -31,6 +30,7 @@ public class ClienteController {
     @FXML private TableColumn<Cliente, String> colTelefono;
     @FXML private TableColumn<Cliente, String> colEmail;
     @FXML private TableColumn<Cliente, Number> colPersonas;
+    @FXML private TableColumn<Cliente, Void> colAcciones;
 
     @FXML private TextField txtBuscar;
 
@@ -38,53 +38,84 @@ public class ClienteController {
 
     @FXML
     public void initialize() {
-
         colId.setCellValueFactory(data ->
-                new SimpleIntegerProperty(
-                        data.getValue().getIdCliente()
-                ));
+                new SimpleIntegerProperty(data.getValue().getIdCliente()));
 
         colNombre.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue().getNombre()
-                ));
+                new SimpleStringProperty(data.getValue().getNombre()));
 
         colApellido.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue().getApellido()
-                ));
+                new SimpleStringProperty(data.getValue().getApellido()));
 
         colDni.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue().getDni()
-                ));
+                new SimpleStringProperty(data.getValue().getDni()));
 
         colTelefono.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue().getTelefono()
-                ));
+                new SimpleStringProperty(data.getValue().getTelefono()));
 
         colEmail.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue().getEmail()
-                ));
+                new SimpleStringProperty(data.getValue().getEmail()));
 
-        colPersonas.setCellValueFactory(data ->
-                new SimpleIntegerProperty(
-                        data.getValue().getCantidaP()
-                ));
+        if (colPersonas != null) {
+            colPersonas.setCellValueFactory(data ->
+                    new SimpleIntegerProperty(data.getValue().getCantidaP()));
+        }
 
+        configurarColumnaAcciones();
         listarClientes();
+    }
+
+    private void configurarColumnaAcciones() {
+        if (colAcciones == null) {
+            return;
+        }
+
+        colAcciones.setCellFactory(param -> new TableCell<>() {
+            private final Button btnEditar = new Button("✎");
+            private final Button btnEliminar = new Button("🗑");
+            private final HBox contenedor = new HBox(10, btnEditar, btnEliminar);
+
+            {
+                contenedor.setAlignment(Pos.CENTER);
+                btnEditar.setStyle("-fx-background-color: transparent; -fx-text-fill: #B48A3E; -fx-font-size: 15px; -fx-cursor: hand;");
+                btnEliminar.setStyle("-fx-background-color: transparent; -fx-text-fill: #DC2626; -fx-font-size: 15px; -fx-cursor: hand;");
+
+                btnEditar.setOnAction(event -> {
+                    Cliente cliente = getTableView().getItems().get(getIndex());
+                    if (cliente != null) {
+                        tablaClientes.getSelectionModel().select(cliente);
+                        editarCliente();
+                    }
+                });
+
+                btnEliminar.setOnAction(event -> {
+                    Cliente cliente = getTableView().getItems().get(getIndex());
+                    if (cliente != null) {
+                        tablaClientes.getSelectionModel().select(cliente);
+                        eliminarCliente();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(contenedor);
+                }
+            }
+        });
     }
 
     @FXML
     private void listarClientes() {
         tablaClientes.setItems(
-                FXCollections.observableArrayList(
-                        clienteDao.listar()
-                )
+                FXCollections.observableArrayList(clienteDao.listar())
         );
     }
+
     @FXML
     private void actualizarClientes() {
         listarClientes();
@@ -92,7 +123,6 @@ public class ClienteController {
 
     @FXML
     private void buscarCliente() {
-
         String dni = txtBuscar.getText().trim();
 
         if (dni.isEmpty()) {
@@ -103,26 +133,19 @@ public class ClienteController {
         Cliente cliente = clienteDao.buscarPorDNI(dni);
 
         if (cliente != null) {
-            tablaClientes.setItems(
-                    FXCollections.observableArrayList(cliente)
-            );
+            tablaClientes.setItems(FXCollections.observableArrayList(cliente));
         } else {
             tablaClientes.getItems().clear();
             mostrarAlerta("Cliente no encontrado");
         }
     }
 
-
     @FXML
     private void registrarCliente() {
-
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/pe/edu/upeu/luxury12/view/view/cliente-form.fxml"
-                    )
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/cliente-form.fxml")
             );
-
             Parent root = loader.load();
 
             ClienteFormController controller = loader.getController();
@@ -145,12 +168,9 @@ public class ClienteController {
         }
     }
 
-
     @FXML
     private void editarCliente() {
-
-        Cliente seleccionado =
-                tablaClientes.getSelectionModel().getSelectedItem();
+        Cliente seleccionado = tablaClientes.getSelectionModel().getSelectedItem();
 
         if (seleccionado == null) {
             mostrarAlerta("Selecciona un cliente para editar.");
@@ -159,16 +179,11 @@ public class ClienteController {
 
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/pe/edu/upeu/luxury12/view/view/cliente-form.fxml"
-                    )
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/cliente-form.fxml")
             );
-
             Parent root = loader.load();
 
             ClienteFormController controller = loader.getController();
-
-
             controller.cargarCliente(seleccionado);
 
             Stage ventana = new Stage();
@@ -190,24 +205,16 @@ public class ClienteController {
         }
     }
 
-
-
-
     @FXML
     private void eliminarCliente() {
-
-        Cliente seleccionado =
-                tablaClientes.getSelectionModel().getSelectedItem();
+        Cliente seleccionado = tablaClientes.getSelectionModel().getSelectedItem();
 
         if (seleccionado == null) {
             mostrarAlerta("Selecciona un cliente para eliminar.");
             return;
         }
 
-        Alert confirmacion = new Alert(
-                Alert.AlertType.CONFIRMATION
-        );
-
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
         confirmacion.setTitle("HOTEL LUXURY");
         confirmacion.setHeaderText("Eliminar cliente");
         confirmacion.setContentText(
@@ -218,12 +225,9 @@ public class ClienteController {
                         + "?"
         );
 
-        java.util.Optional<ButtonType> respuesta =
-                confirmacion.showAndWait();
+        Optional<ButtonType> respuesta = confirmacion.showAndWait();
 
-        if (respuesta.isPresent() &&
-                respuesta.get() == ButtonType.OK) {
-
+        if (respuesta.isPresent() && respuesta.get() == ButtonType.OK) {
             boolean eliminado = clienteDao.eliminar(seleccionado);
 
             if (eliminado) {
@@ -234,7 +238,6 @@ public class ClienteController {
             }
         }
     }
-
 
     private void mostrarAlerta(String mensaje) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);

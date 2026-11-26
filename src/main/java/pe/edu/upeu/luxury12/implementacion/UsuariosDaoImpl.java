@@ -48,6 +48,10 @@ public class UsuariosDaoImpl implements IUsuarioDao {
 
     private boolean verificarClave(String clave, String almacenada) {
         try {
+            if (almacenada == null) {
+                return false;
+            }
+
             String[] partes = almacenada.split(":");
 
             if (partes.length != 3) {
@@ -74,6 +78,13 @@ public class UsuariosDaoImpl implements IUsuarioDao {
         }
     }
 
+    private String normalizarEstado(String estado) {
+        if (estado == null || estado.isBlank()) {
+            return "ACTIVO";
+        }
+        return estado.trim().toUpperCase();
+    }
+
     private Usuarios convertirUsuario(ResultSet rs) throws SQLException {
 
         Usuarios u = new Usuarios();
@@ -85,8 +96,6 @@ public class UsuariosDaoImpl implements IUsuarioDao {
         u.setUsuario(rs.getString("usuario"));
         u.setTipoUsuario(rs.getString("tipo_usuario"));
         u.setEstado(rs.getString("estado"));
-
-
         u.setClave(null);
 
         return u;
@@ -97,8 +106,8 @@ public class UsuariosDaoImpl implements IUsuarioDao {
 
         String sql = """
                 INSERT INTO usuarios
-                (nombre, apellido, dni, usuario, clave, tipo_usuario)
-                VALUES (?, ?, ?, ?, ?, ?)
+                (nombre, apellido, dni, usuario, clave, tipo_usuario, estado)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 """;
 
         if (u == null || u.getClave() == null ||
@@ -114,9 +123,10 @@ public class UsuariosDaoImpl implements IUsuarioDao {
             ps.setString(1, u.getNombre());
             ps.setString(2, u.getApellido());
             ps.setString(3, u.getDni());
-            ps.setString(4, u.getUsuario());
+            ps.setString(4, u.getUsuario().trim());
             ps.setString(5, protegerClave(u.getClave()));
             ps.setString(6, u.getTipoUsuario());
+            ps.setString(7, normalizarEstado(u.getEstado()));
 
             return ps.executeUpdate() > 0;
 
@@ -156,26 +166,46 @@ public class UsuariosDaoImpl implements IUsuarioDao {
     @Override
     public boolean editar(Usuarios u) {
 
-        String sql = """
-                UPDATE usuarios
-                SET nombre = ?, apellido = ?, dni = ?,
-                    usuario = ?, tipo_usuario = ?
-                WHERE id_usuario = ?
-                """;
+        if (u == null || u.getIdUsuario() <= 0) {
+            return false;
+        }
+
+        boolean cambiarClave = u.getClave() != null && !u.getClave().isBlank();
+
+        String sql = cambiarClave
+                ? """
+                  UPDATE usuarios
+                  SET nombre = ?, apellido = ?, dni = ?,
+                      usuario = ?, clave = ?, tipo_usuario = ?, estado = ?
+                  WHERE id_usuario = ?
+                  """
+                : """
+                  UPDATE usuarios
+                  SET nombre = ?, apellido = ?, dni = ?,
+                      usuario = ?, tipo_usuario = ?, estado = ?
+                  WHERE id_usuario = ?
+                  """;
 
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, u.getNombre());
-            ps.setString(2, u.getApellido());
-            ps.setString(3, u.getDni());
-            ps.setString(4, u.getUsuario());
-            ps.setString(5, u.getTipoUsuario());
-            ps.setInt(6, u.getIdUsuario());
+            int idx = 1;
+            ps.setString(idx++, u.getNombre());
+            ps.setString(idx++, u.getApellido());
+            ps.setString(idx++, u.getDni());
+            ps.setString(idx++, u.getUsuario());
+
+            if (cambiarClave) {
+                ps.setString(idx++, protegerClave(u.getClave()));
+            }
+
+            ps.setString(idx++, u.getTipoUsuario());
+            ps.setString(idx++, normalizarEstado(u.getEstado()));
+            ps.setInt(idx, u.getIdUsuario());
 
             return ps.executeUpdate() > 0;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Error al editar usuario: " + e.getMessage());
             return false;
         }
@@ -183,6 +213,10 @@ public class UsuariosDaoImpl implements IUsuarioDao {
 
     @Override
     public boolean eliminar(Usuarios u) {
+
+        if (u == null) {
+            return false;
+        }
 
         String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
 
@@ -246,7 +280,7 @@ public class UsuariosDaoImpl implements IUsuarioDao {
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, user);
+            ps.setString(1, user.trim());
 
             try (ResultSet rs = ps.executeQuery()) {
 

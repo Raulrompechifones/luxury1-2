@@ -37,7 +37,7 @@ public class UsuarioFormController {
         cmbRol.setValue("RECEPCIONISTA");
     }
 
-    // CARGAR DATOS PARA EDITAR
+
     public void cargarUsuario(Usuarios usuario) {
 
         this.usuarioEditar = usuario;
@@ -56,7 +56,7 @@ public class UsuarioFormController {
         txtConfirmarClave.setDisable(true);
     }
 
-    // GUARDAR USUARIO
+
     @FXML
     private void guardar() {
 

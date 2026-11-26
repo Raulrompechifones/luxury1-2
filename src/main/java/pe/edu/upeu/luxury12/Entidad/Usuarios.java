@@ -10,12 +10,24 @@ public class Usuarios extends Persona {
     public Usuarios() {
     }
 
-    public Usuarios(int idUsuario, String usuario, String clave, String tipoUsuario, String nombre, String apellido, String dni) {
+    public Usuarios(int idUsuario, String usuario, String clave, String tipoUsuario,
+                    String nombre, String apellido, String dni) {
         super(nombre, apellido, dni);
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.clave = clave;
         this.tipoUsuario = tipoUsuario;
+        this.estado = "ACTIVO";
+    }
+
+    public Usuarios(int idUsuario, String usuario, String clave, String tipoUsuario, String estado,
+                    String nombre, String apellido, String dni) {
+        super(nombre, apellido, dni);
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.clave = clave;
+        this.tipoUsuario = tipoUsuario;
+        this.estado = estado;
     }
 
     public int getIdUsuario() {
@@ -49,6 +61,7 @@ public class Usuarios extends Persona {
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
+
     public String getEstado() {
         return estado;
     }

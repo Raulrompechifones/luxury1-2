@@ -1,8 +1,6 @@
-
 package pe.edu.upeu.luxury12.Controller;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -18,21 +16,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import pe.edu.upeu.luxury12.Entidad.Usuarios;
 import pe.edu.upeu.luxury12.Entidad.Habitacion;
-import pe.edu.upeu.luxury12.Entidad.Reserva;
-import pe.edu.upeu.luxury12.implementacion.HabitacionDaoImpl;
+import pe.edu.upeu.luxury12.Entidad.Usuarios;
 import pe.edu.upeu.luxury12.implementacion.ClienteDaoImpl;
+import pe.edu.upeu.luxury12.implementacion.HabitacionDaoImpl;
 import pe.edu.upeu.luxury12.implementacion.ReservaDaoImpl;
 import pe.edu.upeu.luxury12.implementacion.UsuariosDaoImpl;
+import pe.edu.upeu.luxury12.utils.SesionUsuario;
 
 import java.io.IOException;
 import java.util.List;
@@ -54,31 +47,60 @@ public class MainController {
     @FXML
     private Button btnReportes;
 
+    @FXML
+    private Button btnVentas;
+
     private Usuarios usuarioActual;
+
+    private boolean esRolAdmin(Usuarios usuario) {
+        if (usuario == null || usuario.getTipoUsuario() == null) {
+            return false;
+        }
+        String rol = usuario.getTipoUsuario().trim().toUpperCase();
+        return "ADMIN".equals(rol) || "ADMINISTRADOR".equals(rol);
+    }
 
     public void setUsuarioActual(Usuarios usuario) {
         this.usuarioActual = usuario;
+        SesionUsuario.iniciarSesion(usuario);
 
-        lblUsuarioActual.setText(usuario.getUsuario());
-        lblRolActual.setText(usuario.getTipoUsuario());
+        String nombreUsuario = (usuario != null && usuario.getUsuario() != null)
+                ? usuario.getUsuario()
+                : "";
+        String tipoUsuario = (usuario != null && usuario.getTipoUsuario() != null)
+                ? usuario.getTipoUsuario().trim()
+                : "";
 
-        boolean esAdministrador =
-                "ADMINISTRADOR".equals(usuario.getTipoUsuario());
+        lblUsuarioActual.setText(nombreUsuario);
+        lblRolActual.setText(tipoUsuario);
 
-        btnUsuarios.setVisible(esAdministrador);
-        btnUsuarios.setManaged(esAdministrador);
+        boolean esAdministrador = esRolAdmin(usuario);
 
-        btnReportes.setVisible(esAdministrador);
-        btnReportes.setManaged(esAdministrador);
+        if (btnUsuarios != null) {
+            btnUsuarios.setVisible(esAdministrador);
+            btnUsuarios.setManaged(esAdministrador);
+        }
 
-        cambiarContenido(
-                "BIENVENIDO A HOTEL LUXURY, " + usuario.getNombre()
-        );
+        if (btnReportes != null) {
+            btnReportes.setVisible(esAdministrador);
+            btnReportes.setManaged(esAdministrador);
+        }
 
+        if (btnVentas != null) {
+            boolean puedeVerVentas = usuario != null;
+            btnVentas.setVisible(puedeVerVentas);
+            btnVentas.setManaged(puedeVerVentas);
+        }
+
+        String nombreMostrar = (usuario != null && usuario.getNombre() != null && !usuario.getNombre().isBlank())
+                ? usuario.getNombre()
+                : nombreUsuario;
+
+        cambiarContenido("BIENVENIDO A HOTEL LUXURY, " + nombreMostrar);
         mostrarInicio();
 
-        System.out.println("Usuario conectado: " + usuario.getUsuario());
-        System.out.println("Rol: " + usuario.getTipoUsuario());
+        System.out.println("Usuario conectado: " + nombreUsuario);
+        System.out.println("Rol: " + tipoUsuario);
     }
 
     @FXML
@@ -87,9 +109,7 @@ public class MainController {
 
         Platform.runLater(() -> {
             if (panelContenido.getScene() != null) {
-                Stage stage =
-                        (Stage) panelContenido.getScene().getWindow();
-
+                Stage stage = (Stage) panelContenido.getScene().getWindow();
                 stage.setResizable(true);
                 stage.setMaximized(true);
             }
@@ -106,9 +126,7 @@ public class MainController {
     private void mostrarClientes() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/pe/edu/upeu/luxury12/view/view/cliente-view.fxml"
-                    )
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/cliente-view.fxml")
             );
 
             Parent vistaClientes = loader.load();
@@ -123,9 +141,7 @@ public class MainController {
     private void mostrarHabitaciones() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/pe/edu/upeu/luxury12/view/view/habitacion-view.fxml"
-                    )
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/habitacion-view.fxml")
             );
 
             Parent vistaHabitaciones = loader.load();
@@ -140,9 +156,7 @@ public class MainController {
     private void mostrarReservas() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/pe/edu/upeu/luxury12/view/view/reserva-view.fxml"
-                    )
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/reserva-view.fxml")
             );
 
             Parent vistaReservas = loader.load();
@@ -154,36 +168,56 @@ public class MainController {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("HOTEL LUXURY");
             alerta.setHeaderText("Error al abrir reservas");
-            alerta.setContentText(
-                    "No se pudo cargar la vista de reservas: " + e.getMessage()
-            );
+            alerta.setContentText("No se pudo cargar la vista de reservas: " + e.getMessage());
             alerta.showAndWait();
         }
     }
 
-
-
     @FXML
-    private void mostrarReportes() {
-        if (usuarioActual == null ||
-                !"ADMINISTRADOR".equals(usuarioActual.getTipoUsuario())) {
-
+    private void mostrarVentas() {
+        if (!SesionUsuario.estaAutenticado() && usuarioActual == null) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("HOTEL LUXURY");
-            alerta.setHeaderText("Acceso denegado");
-            alerta.setContentText(
-                    "Solo el administrador puede acceder a los reportes."
-            );
-
+            alerta.setHeaderText("Sesión no iniciada");
+            alerta.setContentText("Debe iniciar sesión para acceder al módulo de ventas.");
             alerta.showAndWait();
             return;
         }
 
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/pe/edu/upeu/luxury12/view/view/reporte-view.fxml"
-                    )
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/ventas-view.fxml")
+            );
+
+            Parent vistaVentas = loader.load();
+            panelContenido.getChildren().setAll(vistaVentas);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("HOTEL LUXURY");
+            alerta.setHeaderText("Módulo de ventas en preparación");
+            alerta.setContentText("No se pudo abrir la vista de ventas: " + e.getMessage());
+            alerta.showAndWait();
+        }
+    }
+
+    @FXML
+    private void mostrarReportes() {
+        Usuarios sesionActiva = usuarioActual != null ? usuarioActual : SesionUsuario.getUsuarioActual();
+        if (!esRolAdmin(sesionActiva)) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("HOTEL LUXURY");
+            alerta.setHeaderText("Acceso denegado");
+            alerta.setContentText("Solo el administrador puede acceder a los reportes.");
+            alerta.showAndWait();
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/reporte-view.fxml")
             );
 
             Parent vistaReportes = loader.load();
@@ -196,37 +230,29 @@ public class MainController {
 
     private void cambiarContenido(String titulo) {
         Label etiqueta = new Label(titulo);
-
         etiqueta.setStyle(
                 "-fx-font-size: 25px;" +
                         "-fx-font-weight: bold;" +
                         "-fx-text-fill: #101820;"
         );
-
         panelContenido.getChildren().setAll(etiqueta);
     }
 
     @FXML
     private void mostrarUsuarios() {
-        if (usuarioActual == null ||
-                !"ADMINISTRADOR".equals(usuarioActual.getTipoUsuario())) {
-
+        Usuarios sesionActiva = usuarioActual != null ? usuarioActual : SesionUsuario.getUsuarioActual();
+        if (!esRolAdmin(sesionActiva)) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("HOTEL LUXURY");
             alerta.setHeaderText("Acceso denegado");
-            alerta.setContentText(
-                    "Solo el administrador puede acceder a la gestión de usuarios."
-            );
-
+            alerta.setContentText("Solo el administrador puede acceder a la gestión de usuarios.");
             alerta.showAndWait();
             return;
         }
 
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/pe/edu/upeu/luxury12/view/view/usuario-view.fxml"
-                    )
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/usuario-view.fxml")
             );
 
             Parent vista = loader.load();
@@ -239,7 +265,6 @@ public class MainController {
 
     private void calcularEstadisticasHabitaciones() {
         HabitacionDaoImpl habitacionDao = new HabitacionDaoImpl();
-
         List<Habitacion> habitaciones = habitacionDao.listar();
 
         int totalHabitaciones = habitaciones.size();
@@ -261,48 +286,43 @@ public class MainController {
         }
 
         double porcentajeOcupacion = 0;
-
         if (totalHabitaciones > 0) {
-            porcentajeOcupacion =
-                    (habitacionesOcupadas * 100.0) / totalHabitaciones;
+            porcentajeOcupacion = (habitacionesOcupadas * 100.0) / totalHabitaciones;
         }
 
         System.out.println("===== ESTADÍSTICAS HOTEL LUXURY =====");
         System.out.println("Total de habitaciones: " + totalHabitaciones);
         System.out.println("Habitaciones ocupadas: " + habitacionesOcupadas);
         System.out.println("Habitaciones disponibles: " + habitacionesDisponibles);
-        System.out.printf("Porcentaje de ocupación: %.2f%%%n",
-                porcentajeOcupacion);
+        System.out.printf("Porcentaje de ocupación: %.2f%%%n", porcentajeOcupacion);
     }
 
     private void mostrarDashboard() {
         HabitacionDaoImpl dao = new HabitacionDaoImpl();
         List<Habitacion> habitaciones = dao.listar();
 
-        int total = habitaciones.size();
-
         long ocupadas = habitaciones.stream()
                 .filter(h -> "OCUPADA".equalsIgnoreCase(
                         h.getEstado() == null ? "" : h.getEstado().trim()))
                 .count();
 
-        int totalClientes = new ClienteDaoImpl().listar().size();
-
-        int totalUsuarios = new UsuariosDaoImpl().listar().size();
-
         long reservasActivas = new ReservaDaoImpl().listar().stream()
-                .filter(r -> r.getEstado() != null &&
-                        (r.getEstado().equalsIgnoreCase("Confirmada") ||
+                .filter(r -> r.getEstado() != null && (
+                        r.getEstado().equalsIgnoreCase("R") ||
+                                r.getEstado().equalsIgnoreCase("O") ||
+                                r.getEstado().equalsIgnoreCase("Confirmada") ||
                                 r.getEstado().equalsIgnoreCase("Pendiente") ||
-                                r.getEstado().equalsIgnoreCase("Ocupada")))
+                                r.getEstado().equalsIgnoreCase("Ocupada")
+                ))
                 .count();
 
         String rol = usuarioActual == null
                 ? "Usuario"
                 : usuarioActual.getTipoUsuario();
 
-        String nombreRol = rol.substring(0, 1).toUpperCase()
-                + rol.substring(1).toLowerCase();
+        String nombreRol = (rol == null || rol.isBlank())
+                ? "Usuario"
+                : rol.trim().substring(0, 1).toUpperCase() + rol.trim().substring(1).toLowerCase();
 
         VBox contenido = new VBox(20);
         contenido.setPadding(new Insets(25));
@@ -315,30 +335,24 @@ public class MainController {
                         "-fx-text-fill: #102638;"
         );
 
-        Label subtitulo = new Label(
-                "Sistema de Gestión Hotelera - Hotel Luxury"
-        );
+        Label subtitulo = new Label("Sistema de Gestión Hotelera - Hotel Luxury");
         subtitulo.setStyle(
                 "-fx-font-size: 13px;" +
                         "-fx-text-fill: #536575;"
         );
+
+        int totalClientes = new ClienteDaoImpl().listar().size();
+        int totalUsuarios = new UsuariosDaoImpl().listar().size();
 
         HBox tarjetas = new HBox(16);
         tarjetas.setAlignment(Pos.CENTER);
         tarjetas.setMaxWidth(Double.MAX_VALUE);
 
         tarjetas.getChildren().addAll(
-                crearTarjeta("♟", "Clientes registrados",
-                        String.valueOf(totalClientes)),
-
-                crearTarjeta("▰", "Habitaciones ocupadas",
-                        String.valueOf(ocupadas)),
-
-                crearTarjeta("▦", "Reservas activas",
-                        String.valueOf(reservasActivas)),
-
-                crearTarjeta("♙", "Usuarios del sistema",
-                        String.valueOf(totalUsuarios))
+                crearTarjeta("♟", "Clientes registrados", String.valueOf(totalClientes)),
+                crearTarjeta("▰", "Habitaciones ocupadas", String.valueOf(ocupadas)),
+                crearTarjeta("▦", "Reservas activas", String.valueOf(reservasActivas)),
+                crearTarjeta("♙", "Usuarios del sistema", String.valueOf(totalUsuarios))
         );
 
         StackPane banner = new StackPane();
@@ -460,19 +474,17 @@ public class MainController {
     private void cerrarSesion() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/pe/edu/upeu/luxury12/view/view/portada-view.fxml"
-                    )
+                    getClass().getResource("/pe/edu/upeu/luxury12/view/view/portada-view.fxml")
             );
 
             Parent vista = loader.load();
 
             javafx.scene.Scene scene = new javafx.scene.Scene(vista);
 
-            Stage stage =
-                    (Stage) panelContenido.getScene().getWindow();
+            Stage stage = (Stage) panelContenido.getScene().getWindow();
 
             usuarioActual = null;
+            SesionUsuario.cerrarSesion();
 
             stage.setMaximized(false);
             stage.setScene(scene);
@@ -487,12 +499,8 @@ public class MainController {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("HOTEL LUXURY");
             alerta.setHeaderText("Error al cerrar sesión");
-            alerta.setContentText(
-                    "No se pudo regresar al inicio de sesión."
-            );
-
+            alerta.setContentText("No se pudo regresar al inicio de sesión.");
             alerta.showAndWait();
         }
     }
 }
-
